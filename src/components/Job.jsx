@@ -34,6 +34,7 @@ const Job = ({ data }) => {
               dispatch({ type: "REMOVE_FAV", payload: data });
             }}
             color="red"
+            fontSize={20}
             style={{ cursor: "pointer" }}
           />
         </Col>
@@ -44,6 +45,7 @@ const Job = ({ data }) => {
               dispatch({ type: "ADD_TO_FAV", payload: data });
             }}
             color="grey"
+            fontSize={18}
             style={{ cursor: "pointer" }}
           />
         </Col>

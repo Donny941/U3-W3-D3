@@ -3,13 +3,13 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import Job from "./Job";
 import { HeartFill } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const MainSearch = () => {
   const [query, setQuery] = useState("");
-  const [jobs, setJobs] = useState([]);
-  // const dispatch = useDispatch();
-  // const jobs = useSelector((state) => state.search.jobs);
+  // const [jobs, setJobs] = useState([]);
+  const dispatch = useDispatch();
+  const jobs = useSelector((state) => state.search.jobs);
 
   const baseEndpoint = "https://strive-benchmark.herokuapp.com/api/jobs?search=";
 
@@ -24,8 +24,8 @@ const MainSearch = () => {
       const response = await fetch(baseEndpoint + query + "&limit=20");
       if (response.ok) {
         const { data } = await response.json();
-        // dispatch({ type: "SAVE_JOB", payload: data });
-        setJobs(data);
+        dispatch({ type: "SAVE_JOB", payload: data });
+        // setJobs(data);
       } else {
         alert("Error fetching results");
       }
@@ -49,8 +49,16 @@ const MainSearch = () => {
           </div>
         </Col>
         <Col xs={10} className="mx-auto">
-          <Form onSubmit={handleSubmit}>
+          <Form className="d-flex" onSubmit={handleSubmit}>
             <Form.Control type="search" value={query} onChange={handleChange} placeholder="type and press Enter" />
+            <Button
+              variant="danger"
+              onClick={() => {
+                dispatch({ type: "RESET_JOB" });
+              }}
+            >
+              Reset List
+            </Button>
           </Form>
         </Col>
         <Col xs={10} className="mx-auto mb-5">

@@ -2,9 +2,9 @@ const jobState = {
   favourite: {
     content: [],
   },
-  //   search: {
-  //     jobs: [],
-  //   },
+  search: {
+    jobs: [],
+  },
 };
 
 const mainReducer = (state = jobState, action) => {
@@ -29,15 +29,24 @@ const mainReducer = (state = jobState, action) => {
           }),
         },
       };
-    // case "SAVE_JOB":
-    //   return {
-    //     ...state,
-    //     search: {
-    //       ...state.search,
+    case "SAVE_JOB":
+      return {
+        ...state,
+        search: {
+          ...state.search,
 
-    //       jobs: [...state.search.jobs, action.payload],
-    //     },
-    //   };
+          jobs: action.payload,
+        },
+      };
+    case "RESET_JOB":
+      return {
+        ...state,
+        search: {
+          ...state.search,
+
+          jobs: [],
+        },
+      };
 
     default:
       return state;
